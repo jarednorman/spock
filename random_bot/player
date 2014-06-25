@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
-loop do
+while command = gets
   puts %w{rock paper scissors}.sample
+  $stdout.flush
 end
