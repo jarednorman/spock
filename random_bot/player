@@ -2,6 +2,12 @@
 puts "randombot"
 $stdout.flush
 while command = gets
-  puts %w{rock paper scissors}.sample
+  command = command.strip
+  if command == "next"
+    puts %w{rock paper scissors}.sample
+  elsif command == "done"
+    puts "okay"
+    break
+  end
   $stdout.flush
 end

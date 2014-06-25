@@ -1,11 +1,13 @@
 defmodule Spock.Bot do
+
   @derive [Access]
   defstruct name: "", pid: nil
+  alias Spock.Bot
 
   def new(folder) do
     pid = Port.open({:spawn, "./#{folder}/player"}, [:binary, {:line, 100}])
     name = get_name(pid)
-    %Spock.Bot{pid: pid, name: name}
+    %Bot{pid: pid, name: name}
   end
 
   def get_name(pid) do
@@ -14,10 +16,22 @@ defmodule Spock.Bot do
     end
   end
 
-  def next_move(%Spock.Bot{pid: pid}) do
+  def next_move(%Bot{pid: pid}) do
     send(pid, {self, {:command, "next\n"}})
     receive do
       {^pid, {:data, {:eol, move}}} -> move
     end
+  end
+
+  def end_run(%Bot{pid: pid}) do
+    send(pid, {self, {:command, "done\n"}})
+    receive do
+      {^pid, {:data, {:eol, "okay"}}} ->
+    end
+    Port.close(pid)
+  end
+
+  def is_running?(%Bot{pid: pid}) do
+    Port.info(pid) != :undefined
   end
 end

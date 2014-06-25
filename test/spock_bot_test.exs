@@ -21,4 +21,11 @@ defmodule SpockBotTest do
     move = Bot.next_move(bot)
     assert Enum.any?(@valid_moves, &(move == &1))
   end
+
+  test "ending the run" do
+    bot = Bot.new(@random_bot_folder)
+    assert Bot.is_running?(bot)
+    Bot.end_run(bot)
+    refute Bot.is_running?(bot)
+  end
 end
