@@ -23,6 +23,10 @@ defmodule Spock.Bot do
     end
   end
 
+  def report_result(%Bot{pid: pid}, result) do
+    send(pid, {self, {:command, result <> "\n"}})
+  end
+
   def end_run(%Bot{pid: pid}) do
     send(pid, {self, {:command, "done\n"}})
     receive do

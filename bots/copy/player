@@ -1,0 +1,53 @@
+#!/usr/bin/env ruby
+
+class CopyCat
+  LOSS_MOVES = { "rock" => "paper", "paper" => "scissors", "scissors" => "rock" }
+  WIN_MOVES = { "paper" => "rock", "rock" => "scissors", "scissors" => "paper" }
+
+  def initialize
+    report_name
+    @next_move = "rock"
+  end
+
+  def run
+    loop do
+      case receive
+      when "loss"
+        @next_move = LOSS_MOVES[@next_move]
+      when "win"
+        @next_move = WIN_MOVES[@next_move]
+      when "next"
+        move
+      when "done"
+        finish
+      end
+    end
+  end
+
+  private
+  def move
+    send @next_move
+  end
+
+  def report_name
+    send "copycat"
+  end
+
+  def send message
+    puts message
+    $stdout.flush
+  end
+
+  def receive
+    if message = gets
+      message.strip
+    end
+  end
+
+  def finish
+    send "okay"
+    exit
+  end
+end
+
+CopyCat.new.run if __FILE__ == $0
