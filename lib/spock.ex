@@ -1,0 +1,2 @@
+defmodule Spock do
+end
