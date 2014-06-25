@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+loop do
+  puts %w{rock paper scissors}.sample
+end
