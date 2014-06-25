@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
-puts "randombot"
+puts "rock rock rock"
 $stdout.flush
 while command = gets
   command = command.strip
   if command == "next"
-    puts %w{rock paper scissors}.sample
+    puts "rock"
   elsif command == "done"
     puts "okay"
     break

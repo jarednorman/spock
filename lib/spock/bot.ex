@@ -4,8 +4,8 @@ defmodule Spock.Bot do
   defstruct name: "", pid: nil
   alias Spock.Bot
 
-  def new(folder) do
-    pid = Port.open({:spawn, "./#{folder}/player"}, [:binary, {:line, 100}])
+  def new(path) do
+    pid = Port.open({:spawn, Path.join([".", path, "player"])}, [:binary, {:line, 100}])
     name = get_name(pid)
     %Bot{pid: pid, name: name}
   end

@@ -2,28 +2,19 @@ defmodule SpockBotTest do
   use ExUnit.Case
   alias Spock.Bot
 
-  @random_bot_folder "random_bot"
-  @valid_moves ["rock", "paper", "scissors"]
+  @rock_bot_path "bots/rock"
 
   test "checking the bot name" do
-    assert Bot.new(@random_bot_folder)[:name] == "randombot"
+    assert Bot.new(@rock_bot_path)[:name] == "rock rock rock"
   end
 
   test "reading commands" do
-    bot = Bot.new(@random_bot_folder)
-
-    move = Bot.next_move(bot)
-    assert Enum.any?(@valid_moves, &(move == &1))
-
-    move = Bot.next_move(bot)
-    assert Enum.any?(@valid_moves, &(move == &1))
-
-    move = Bot.next_move(bot)
-    assert Enum.any?(@valid_moves, &(move == &1))
+    move = Bot.new(@rock_bot_path) |> Bot.next_move
+    assert move == "rock"
   end
 
   test "ending the run" do
-    bot = Bot.new(@random_bot_folder)
+    bot = Bot.new(@rock_bot_path)
     assert Bot.is_running?(bot)
     Bot.end_run(bot)
     refute Bot.is_running?(bot)
