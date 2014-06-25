@@ -1,4 +1,4 @@
 Spock
 =====
 
-** TODO: Add description **
+Spock is a tournament runner for rock-paper-scissors bots.
